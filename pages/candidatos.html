@@ -35,6 +35,10 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase.js"></script>
+  <script type="text/javascript" src='candidatos.js'></script>
+  
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
@@ -42,7 +46,7 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+      
         
         <h4 class="ms-3 font-weight-bold text-white">CANDIDATA</h4>
       </a>
@@ -51,7 +55,7 @@
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard.html">
+          <a class="nav-link text-white" href="../pages/dashboard.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -77,7 +81,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/candidatos.html">
+          <a class="nav-link text-white active" href="../pages/candidatos.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
@@ -98,7 +102,7 @@
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Profile</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">PARTIDOS POLÍTICOS</h6>
+          <h6 class="font-weight-bolder mb-0">Candidatos</h6>
         </nav>
       </div>
     </nav>
@@ -114,11 +118,11 @@
           </div>
           <div class="col-auto my-auto">
             <div class="h-100">
-              <h5 class="mb-1">
-                Eleições 2018
+              <h5 class="mb-1" id='anoGeralEleicoes'>
+                Ano
               </h5>
-              <p class="mb-0 font-weight-normal text-sm">
-                Eleições Gerais de 2018
+              <p class="mb-0 font-weight-normal text-sm" id='descricaoAnoGeral'>
+                Descrição da Eleição
               </p>
             </div>
           </div>
@@ -132,11 +136,11 @@
                     
                     <div class="input-group input-group-static mb-4">
                        
-                       <select class="form-control" id="exampleFormControlSelect1">
+                       <select class="form-control" id="anoCandidato">
+                         <option value='2018'>2018</option>
+                         <option value='2016'>2016</option>
                          <option>2010</option>
-                         <option>2012</option>
-                         <option>2018</option>
-                         <option>2016</option>
+                         <option>2011</option>
                          
                        </select>
                      </div>
@@ -151,9 +155,9 @@
                     
                     <div class="input-group input-group-static mb-4">
                        
-                       <select class="form-control" id="exampleFormControlSelect1">
-                         <option>AL</option>
-                         <option>AM</option>
+                       <select class="form-control" id="estadoCandidato">
+                         <option value='AL'>AL</option>
+                         <option value='AM'>AM</option>
                          <option>PA</option>
                          
                        </select>
@@ -166,7 +170,7 @@
                 <li class="nav-item">
                   
                     
-                    <button class="btn btn-icon btn-3 btn-primary" type="button">
+                    <button class="btn btn-icon btn-3 btn-primary" type="button" onclick="rodarQueryCandidatos()">
                       <span class="btn-inner--icon"><i class="material-icons">search</i></span>
                       <span class="btn-inner--text">Pesquisar</span>
                     </button>
@@ -203,35 +207,35 @@
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <tr>
+                          <tbody id='bodycandidato'>
+                            <tr id='candidato'>
                               <td>
                                 <div class="d-flex px-2 py-1">
                                   
                                   <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Cabo Daciolo</h6>
-                                    <p class="text-xs text-secondary mb-0">Benevenuto Daciolo Fonseca dos Santos</p>
+                                    <h6 class="mb-0 text-sm" id='nmUrnaCandidato'>Nome na Urna</h6>
+                                    <p class="text-xs text-secondary mb-0" id='nmCompletoCandidato'>Nome completo do candidato</p>
                                   </div>
                                 </div>
                               </td>
                               <td>
-                                <p class="text-xs font-weight-bold mb-0">Presidente</p>
-                                <p class="text-xs text-secondary mb-0">BRASIL</p>
+                                <p class="text-xs font-weight-bold mb-0" id='cargoCandidato'>Cargo</p>
+                                <p class="text-xs text-secondary mb-0" id='localCandidato'>Local</p>
                               </td>
                               <td class="align-middle text-center text-sm">
-                                <span class="badge badge-sm bg-gradient-success">Eleito</span>
+                                <span class="badge badge-sm bg-gradient-success" id='statusCandidato'>Status</span>
                               </td>
                               <td class="align-middle text-center">
-                                <span class="text-secondary text-xs font-weight-bold">9999999</span>
+                                <span class="text-secondary text-xs font-weight-bold" id='votosCandidato'>Quantidade de  votos</span>
                               </td>
                               <!-- PARTE DOS BOTOES -->
                               <td class="align-middle text-center">
-                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-default">Contas</button>
-                                  <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-candidato">Contas</button>
+                                  <div class="modal fade" id="modal-candidato" tabindex="-1" role="dialog" aria-labelledby="modal-candidato" aria-hidden="true">
                                     <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h6 class="modal-title font-weight-normal" id="modal-title-default">FULANO DE TAL</h6>
+                                          <h6 class="modal-title font-weight-normal" id="modal-candidato-title">FULANO DE TAL</h6>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                           </button>
@@ -250,19 +254,25 @@
                                   </div>
                               </td>
                               <td class="align-middle text-center">
-                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-default">Perfil</button>
-                                  <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                                <button type="button" id='botaoModal' class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalPerfil">Perfil</button>
+                                  <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="modalPerfil" aria-hidden="true">
                                     <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h6 class="modal-title font-weight-normal" id="modal-title-default">Type your modal title</h6>
+                                          <h6 class="modal-title font-weight-normal" id="tituloModal">nomeDaPessoa</h6>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                           </button>
                                         </div>
-                                        <div class="modal-body">
-                                          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                                          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <div class="modal-body" id='interiormodal'>
+                                          
+                                          <p id='nm_urna'>nm_urna</p>
+                                          <p>genero</p>
+                                          <p>cargo</p>
+                                          <p>sg_uf</p>
+                                          <p>nm_ue</p>
+                                          <p>qt_votos</p>
+                                          
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn bg-gradient-primary">Save changes</button>
@@ -278,145 +288,8 @@
                                 
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <div class="d-flex px-2 py-1">
-                                  <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Fernando Haddad</h6>
-                                    <p class="text-xs text-secondary mb-0">Fernando Haddad</p>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <p class="text-xs font-weight-bold mb-0">Presidente</p>
-                                <p class="text-xs text-secondary mb-0">BRASIL</p>
-                              </td>
-                              <td class="align-middle text-center text-sm">
-                                <span class="badge badge-sm bg-gradient-secondary">NÃO ELEITO</span>
-                              </td>
-                              <td class="align-middle text-center">
-                                <span class="text-secondary text-xs font-weight-bold">99998</span>
-                              </td>
-                              <td class="align-middle text-center">
-                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-default">Contas</button>
-                                  <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                                    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h6 class="modal-title font-weight-normal" id="modal-title-default">FULANO DE TAL</h6>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                        <P><b>FULANO DE TAL</b></P>
-                                        <p>NM_CANDIDATO</p> 
-                                         <p>IDADE CANDIDATO</p> 
-                                         
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                              </td>
-                              <td class="align-middle text-center">
-                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-default">Perfil</button>
-                                  <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                                    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h6 class="modal-title font-weight-normal" id="modal-title-default">Type your modal title</h6>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                                          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn bg-gradient-primary">Save changes</button>
-                                          <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="d-flex px-2 py-1">
-                                  
-                                  <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Jair Bolsonaro</h6>
-                                    <p class="text-xs text-secondary mb-0">Jair Messias Bolsonaro</p>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <p class="text-xs font-weight-bold mb-0">Presidente</p>
-                                <p class="text-xs text-secondary mb-0">BRASIL</p>
-                              </td>
-                              <td class="align-middle text-center text-sm">
-                                <span class="badge badge-sm bg-gradient-secondary">NÃO ELEITO</span>
-                              </td>
-                              <td class="align-middle text-center">
-                                <span class="text-secondary text-xs font-weight-bold">-5</span>
-                              </td>
-                              <td class="align-middle text-center">
-                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-default1">Contas</button>
-                                  <div class="modal fade" id="modal-default1" tabindex="-1" role="dialog" aria-labelledby="modal-default1" aria-hidden="true">
-                                    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h6 class="modal-title font-weight-normal" id="modal-title-default">FULANO DE TAL</h6>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                        <P><b>Receitas</b></P>
-                                         
-
-                                        
-                                         
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                              </td>
-                              <td class="align-middle text-center">
-                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-default">Perfil</button>
-                                  <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                                    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h6 class="modal-title font-weight-normal" id="modal-title-default">Type your modal title</h6>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                                          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn bg-gradient-primary">Save changes</button>
-                                          <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                
-                              </td>
-                              
-                            </tr>
+                            
+                            
                             
                           </tbody>
                         </table>

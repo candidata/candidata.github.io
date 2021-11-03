@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase.js"></script>
+        <script type="text/javascript" src='teste.js'></script>
+          
+    </head>
+
+    <body>
+        <p>oi</p>
+        <button onclick="teste('NM_CANDIDATO',1945)">Nome</button>
+        <button onclick="teste('DS_CARGO',1945)">Cargo</button>
+
+        <form name="myForm" method="post">
+            <select id="anos" name="ano">
+                <option value="1945">1945</option>
+                <option value="1947">1947</option>
+                
+                
+              </select>
+              <select id="estados" name="estado">
+                <option value="AM">AM</option>
+                <option value="AL">AL</option>
+              </select>
+            
+            <input type="button" onclick="validateForm()" value="Submit">
+            </form>
+    </body>
+
+</html>
