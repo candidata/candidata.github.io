@@ -25,6 +25,18 @@ var ano;
 
 var camposQuero = ['NM_CANDIDATO','QT_VOTOS_NOMINAIS','SQ_CANDIDATO'];
 
+function mudarModal(i){
+    var res = document.querySelectorAll('tr')[2+i];
+    res.querySelectorAll("#botaoModal")[0].id='botaoModal'+i.toString();
+        
+    res.querySelectorAll("#modalPerfil")[0].id = 'modalPerfil'+i.toString();
+    
+    var idParaUsar = "#botaoModal"+i.toString();
+    
+    res.getElementById(idParaUsar).dataset['bs-target'] =  'modalPerfil'+i.toString();
+}
+
+
 function gerarListaCandidatos(listaGeral){
     
     
@@ -38,14 +50,15 @@ function gerarListaCandidatos(listaGeral){
         tdBodyCand.appendChild(novocand);
         var res = document.querySelectorAll('tr')[2+i];
         
-
+        
+        
         var nomeCandidato = listaGeral[0][i];
         var nmUrnaCandidato = listaGeral[1][i];
         var cargoCandidato = listaGeral[2][i];
         var sgUFcandidato = listaGeral[3][i];
         var sitCandidato = listaGeral[4][i];
         var votosCandidato = listaGeral[5][i];
-
+        
         // document.querySelectorAll('#botaoModal')[1].dataset['bsTarget'] = "#perfil"+i.toString();
         res.querySelectorAll('h6')[0].innerHTML = nomeCandidato;
         res.querySelectorAll('h6')[2].innerHTML = nomeCandidato;
@@ -64,12 +77,24 @@ function gerarListaCandidatos(listaGeral){
             res.querySelectorAll('span')[0].classList.replace('bg-gradient-success','bg-gradient-secondary');
         }
         // votos
-
+        
         res.querySelectorAll('span')[1].innerHTML = votosCandidato;
         res.querySelectorAll('p')[11].innerHTML = votosCandidato;
         
         res.querySelectorAll('p')[7].innerHTML = 'generoesr';
         res.querySelectorAll('p')[10].innerHTML = 'nmueesr';
+
+        // document.querySelectorAll("#botaoModal")[i].id='botaoModal'+i.toString();
+        
+        // document.querySelectorAll("#modalPerfil")[i].id = 'modalPerfil'+i.toString();
+        
+        // var idParaUsar = "botaoModal"+i.toString();
+        
+        // document.getElementById(idParaUsar).dataset['bs-target'] =  'modalPerfil'+i.toString();
+        setTimeout(function() {
+            mudarModal(i);
+    
+        }, (3 * 500));
     };
 };
 
