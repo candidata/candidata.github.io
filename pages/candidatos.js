@@ -25,32 +25,19 @@ var ano;
 
 var camposQuero = ['NM_CANDIDATO','QT_VOTOS_NOMINAIS','SQ_CANDIDATO'];
 
-function mudarModal(i){
-    var res = document.querySelectorAll('tr')[2+i];
-    res.querySelectorAll("#botaoModal")[0].id='botaoModal'+i.toString();
-        
-    res.querySelectorAll("#modalPerfil")[0].id = 'modalPerfil'+i.toString();
-    
-    var idParaUsar = "#botaoModal"+i.toString();
-    
-    res.getElementById(idParaUsar).dataset['bs-target'] =  'modalPerfil'+i.toString();
-}
-
 
 function gerarListaCandidatos(listaGeral){
     
     
-    for (var i=0;i<15;i++){
+    for (var i=0;i<100;i++){
         var tdBodyCand = document.getElementById('bodycandidato');
         var tdCand = document.getElementById('candidato'); // pega o td do candidato
         
         var novocand = tdCand.cloneNode(true);
-        novocand.id = 'teste';
-
+        novocand.id = 'candidato'+i.toString();
+        
         tdBodyCand.appendChild(novocand);
         var res = document.querySelectorAll('tr')[2+i];
-        
-        
         
         var nomeCandidato = listaGeral[0][i];
         var nmUrnaCandidato = listaGeral[1][i];
@@ -58,19 +45,23 @@ function gerarListaCandidatos(listaGeral){
         var sgUFcandidato = listaGeral[3][i];
         var sitCandidato = listaGeral[4][i];
         var votosCandidato = listaGeral[5][i];
+        var genCandidato = listaGeral[6][i];
+        var sgUeCandidato = listaGeral[7][i];
         
+        res.querySelectorAll('#modal-candidato')[0].id = "modal-candidato"+i.toString();
+        res.querySelectorAll('button')[0].setAttribute("href", "#modal-candidato"+i.toString());
         // document.querySelectorAll('#botaoModal')[1].dataset['bsTarget'] = "#perfil"+i.toString();
         res.querySelectorAll('h6')[0].innerHTML = nomeCandidato;
-        res.querySelectorAll('h6')[2].innerHTML = nomeCandidato;
+        res.querySelectorAll('h6')[1].innerHTML = nomeCandidato;
         // nmCandidato
         res.querySelectorAll('p')[0].innerHTML = nmUrnaCandidato;
-        res.querySelectorAll('p')[6].innerHTML = nmUrnaCandidato;
+        res.querySelectorAll('p')[3].innerHTML = nmUrnaCandidato;
         // cargo
         res.querySelectorAll('p')[1].innerHTML = cargoCandidato;
-        res.querySelectorAll('p')[8].innerHTML = cargoCandidato;
+        res.querySelectorAll('p')[5].innerHTML = cargoCandidato;
         // local
         res.querySelectorAll('p')[2].innerHTML = sgUFcandidato;
-        res.querySelectorAll('p')[9].innerHTML = sgUFcandidato;
+        res.querySelectorAll('p')[6].innerHTML = sgUFcandidato;
         // sit
         res.querySelectorAll('span')[0].innerHTML = sitCandidato;
         if(sitCandidato!='ELEITO' && sitCandidato!='ELEITO POR QP'){
@@ -79,22 +70,15 @@ function gerarListaCandidatos(listaGeral){
         // votos
         
         res.querySelectorAll('span')[1].innerHTML = votosCandidato;
-        res.querySelectorAll('p')[11].innerHTML = votosCandidato;
+        res.querySelectorAll('p')[8].innerHTML = votosCandidato;
         
-        res.querySelectorAll('p')[7].innerHTML = 'generoesr';
-        res.querySelectorAll('p')[10].innerHTML = 'nmueesr';
-
-        // document.querySelectorAll("#botaoModal")[i].id='botaoModal'+i.toString();
+        res.querySelectorAll('p')[4].innerHTML = genCandidato;
         
-        // document.querySelectorAll("#modalPerfil")[i].id = 'modalPerfil'+i.toString();
-        
-        // var idParaUsar = "botaoModal"+i.toString();
-        
-        // document.getElementById(idParaUsar).dataset['bs-target'] =  'modalPerfil'+i.toString();
-        setTimeout(function() {
-            mudarModal(i);
+        // sgue
+        res.querySelectorAll('p')[7].innerHTML = sgUeCandidato;
     
-        }, (3 * 500));
+
+            
     };
 };
 
@@ -106,10 +90,12 @@ var dadosListaCargo = [];
 var dadosListaLocal = [];
 var dadosListaSit = [];
 var dadosListaVotos = [];
+var dadosListaGen = [];
+var dadosListaUe = [];
 
 function rodarQueryCandidatos(){
     
-    for (var x=0;x<15;x++){
+    for (var x=0;x<100;x++){
         estado = document.forms[1]['estadoCandidato'].value;
         ano = document.forms[0]['anoCandidato'].value;
         var numero = x.toString();
@@ -125,6 +111,8 @@ function rodarQueryCandidatos(){
             dadosListaSit.push(nome['DS_SIT_TOT_TURNO']);
             
             dadosListaVotos.push(nome['QT_VOTOS_NOMINAIS']);
+            dadosListaGen.push(nome['DS_GENERO']);
+            dadosListaUe.push(nome['NM_MUNICIPIO']);
             
             listaGeral.push(dadosLista);
             listaGeral.push(dadosListaNome);
@@ -132,6 +120,8 @@ function rodarQueryCandidatos(){
             listaGeral.push(dadosListaLocal);
             listaGeral.push(dadosListaSit);
             listaGeral.push(dadosListaVotos);
+            listaGeral.push(dadosListaGen);
+            listaGeral.push(dadosListaUe);
             
         });
         

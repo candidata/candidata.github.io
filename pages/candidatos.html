@@ -202,8 +202,8 @@
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Local</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Votos</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prestação de contas</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perfil</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Informações e Contas</th>
+                              
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
@@ -230,18 +230,27 @@
                               </td>
                               <!-- PARTE DOS BOTOES -->
                               <td class="align-middle text-center">
-                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-candidato">Contas</button>
+                                <button type="button" class="btn btn-block bg-gradient-primary mb-3" id='testetete' data-bs-toggle="modal" href="#modal-candidato" onclick=''>VER</button>
                                   <div class="modal fade" id="modal-candidato" tabindex="-1" role="dialog" aria-labelledby="modal-candidato" aria-hidden="true">
                                     <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h6 class="modal-title font-weight-normal" id="modal-candidato-title">FULANO DE TAL</h6>
+                                          <h6 class="modal-title font-weight-normal" id="modal-candidato-title">Nome do Candidato</h6>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                           </button>
                                         </div>
                                         <div class="modal-body">
+                                          <div class="modal-body" id='interiormodal'>
                                           
+                                            <p id='nm_urna'>Nome na Urna</p>
+                                            <p id='genCand'>Gênero do Candidato</p>
+                                            <p id='cargoCand'>Cargo</p>
+                                            <p id='sgUfCandidato'>Unidade Federativa</p>
+                                            <p id='nmUeCandidato'>Unidade Eleitoral</p>
+                                            <p id='qtVotosNomCand'>Votos</p>
+                                            
+                                          </div>
                                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-2 pb-1">
                                               <h6 class="text-white text-capitalize ps-3" id='headerCandidatos'>Total de recursos recebidos</h6>
                                               <p class='text-white' id='recRecebidos'>123456</p>
@@ -302,36 +311,7 @@
                                     </div>
                                   </div>
                               </td>
-                              <td class="align-middle text-center">
-                                <button type="button" id='botaoModal' class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalPerfil">Perfil</button>
-                                  <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="modalPerfil" aria-hidden="true">
-                                    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h6 class="modal-title font-weight-normal" id="tituloModal">nomeDaPessoa</h6>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body" id='interiormodal'>
-                                          
-                                          <p id='nm_urna'>nm_urna</p>
-                                          <p id='genCand'>genero</p>
-                                          <p id='cargoCand'>cargo</p>
-                                          <p id='sgUfCandidato'>sg_uf</p>
-                                          <p id='nmUeCandidato'>nm_ue</p>
-                                          <p id='qtVotosNomCand'>qt_votos</p>
-                                          
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn bg-gradient-primary">Save changes</button>
-                                          <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                
-                              </td>
+                              
                               <!-- FIM DA PARTE DOS BOTOES -->
                               <td class="align-middle">
                                 
