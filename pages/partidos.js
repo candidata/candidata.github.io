@@ -149,6 +149,7 @@ function gerarListaCandidatos(listaGeral){
             res.querySelectorAll('p')[2].innerHTML = sgUFcandidato;
             
             // sit
+            // mudar aqui para inglês
             res.querySelectorAll('span')[0].innerHTML = sitCandidato;
             if(sitCandidato!='ELEITO' && sitCandidato!='ELEITO POR QP'){
                 res.querySelectorAll('span')[0].classList.replace('bg-gradient-success','bg-gradient-secondary');
@@ -166,12 +167,13 @@ function gerarListaCandidatos(listaGeral){
 
 function rodarQueryCandidatos(partido){
     
-    for (var x=0;x<50;x++){
-        var estado = 'AL';
+    for (var x=0;x<100;x++){
+        var anoEleicao = document.forms[1]['anoEleicao'].value;
+        var estado = 'AL'+anoEleicao;
         var numero = x.toString();
         var nomeCampo = "('"+estado+"', "+numero+")";
         var nome;
-        firebase.database().ref(1945).child(nomeCampo).once('value',(snap)=>{
+        firebase.database().ref(nomeCampo).once('value',(snap)=>{
             
             nome = snap.val();
             if(nome['SG_PARTIDO'].toUpperCase()==partido){

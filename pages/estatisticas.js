@@ -5,7 +5,7 @@ var um2006dados = [2735,1549,1496,1482];
 var um2018dados = [5690,3024,1832,1126];
 var um2020dados = [66057,27040,18464,18151];
 
-var labelGrafico1 = ['OUTROS', 'AGRICULTOR', 'SERVIDOR', 'EMPRESARIO'];
+var labelGrafico1 = ['Others', 'Farmer', 'Civil Servant ', 'Entrepreneur'];
 
 
 var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -17,7 +17,7 @@ var myChart1 = new Chart(ctx, {
     data: {
     labels: labelGrafico1,
     datasets: [{
-        label: "Ocupações",
+        label: "Occupations",
         tension: 0.4,
         borderWidth: 0,
         borderRadius: 4,
@@ -97,19 +97,19 @@ function grafico1(){
 
     if(anoGrafico1=='2020'){
         dataGrafico1 = um2020dados;
-        labelGrafico1 = ['OUTROS', 'AGRICULTOR', 'SERVIDOR', 'EMPRESARIO'];
+        labelGrafico1 = ['Others', 'Farmer', 'Civil Servant', 'Entrepreneur'];
     }
     else if(anoGrafico1=='2018'){
         dataGrafico1 = um2018dados;
-        labelGrafico1 = ['OUTROS','EMPRESARIO','ADVOGADO','DEPUTADO'];
+        labelGrafico1 = ['Others','Entrepreneur','Lawyer','Congressperson'];
     }
     else if(anoGrafico1=='2006'){
         dataGrafico1 = um2006dados;
-        labelGrafico1 = ['OUTROS','ADVOGADO','COMERCIANTE','EMPRESARIO'];
+        labelGrafico1 = ['Others','Lawyer','Merchant','Entrepreneur'];
     }
     else if(anoGrafico1=='2002'){
         dataGrafico1 = um2002dados;
-        labelGrafico1 = ['NAO INFORMADA','ADVOGADO','COMERCIANTE','OUTROS'];
+        labelGrafico1 = ['Not informed','Lawyer','Merchant','Others'];
     }
     
     myChart1 = new Chart(ctx, {
@@ -117,7 +117,7 @@ function grafico1(){
         data: {
         labels: labelGrafico1,
         datasets: [{
-            label: "Ocupações",
+            label: "Occupations",
             tension: 0.4,
             borderWidth: 0,
             borderRadius: 4,
@@ -201,7 +201,7 @@ new Chart(ctx2, {
     data: {
     labels: [1945, 1966, 1986,2006, 2020],
     datasets: [{
-        label: "Porcentagem",
+        label: "Percentage",
         tension: 0,
         borderWidth: 0,
         pointRadius: 5,
@@ -278,16 +278,17 @@ new Chart(ctx2, {
 });
 
 
+var labelOriginalGrafico3 = ["PTB",'PCB','UDN','PSD'];
+var dadosOriginaisGrafico3 =  [1686526,2001558,5590223,9824065];
 
-
-var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+var ctx3 = document.getElementById("grafico3").getContext("2d");
 
 var myChart3 = new Chart(ctx3, {
-    type: "line",
+    type: "bar",
     data: {
-    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: labelOriginalGrafico3,
     datasets: [{
-        label: "Mobile apps",
+        label: "Parties",
         tension: 0,
         borderWidth: 0,
         pointRadius: 5,
@@ -297,7 +298,7 @@ var myChart3 = new Chart(ctx3, {
         borderWidth: 4,
         backgroundColor: "transparent",
         fill: true,
-        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+        data: dadosOriginaisGrafico3,
         maxBarThickness: 6
 
     }],
@@ -363,16 +364,34 @@ var myChart3 = new Chart(ctx3, {
 });
 
 function grafico3(){
-    var anoGrafico3 = document.forms[2]['grafico3Form'].value;
+    var anoGrafico3 = document.forms[1]['grafico3Form'].value;
     
     myChart3.destroy();
 
+
+    if(anoGrafico3=='1945'){
+        
+        labelOriginalGrafico3 = ["PTB",'PCB','UDN','PSD'];
+        dadosOriginaisGrafico3 =  [1686526,2001558,5590223,9824065];
+    }
+    else if(anoGrafico3=='1947'){
+        labelOriginalGrafico3 = ["PSP",'PTB','UDN','PSD'];
+        dadosOriginaisGrafico3 =  [1586015, 2777663,4290782, 9024181];
+    }
+    else if(anoGrafico3=='1950'){
+        labelOriginalGrafico3 = ["PSP",'PTB','UDN','PSD'];
+        dadosOriginaisGrafico3 =  [4313180, 7714723,10019822,10048906, ];
+    }
+    else if(anoGrafico3=='1990'){
+        labelOriginalGrafico3 = ['PFL','PDT','PDS','PMDB'];
+        dadosOriginaisGrafico3 =  [21268994, 21776697, 30818408,43291282];
+    }
     myChart3 = new Chart(ctx3, {
-        type: "line",
+        type: "bar",
         data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: labelOriginalGrafico3,
         datasets: [{
-            label: "Mobile apps",
+            label: "Parties",
             tension: 0,
             borderWidth: 0,
             pointRadius: 5,
@@ -382,7 +401,7 @@ function grafico3(){
             borderWidth: 4,
             backgroundColor: "transparent",
             fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+            data: dadosOriginaisGrafico3,
             maxBarThickness: 6
     
         }],
@@ -454,7 +473,7 @@ var result2008= [20366,626346];
 var result2004 = [16051,330767];
 var result2006 = [237,249,13127,5659];
 var result2002 =  [238,339,12516,4799];
-var labelGrafico4 = ['PREFEITO','VEREADOR'];
+var labelGrafico4 = ['Mayor','Councilman'];
 
 
 var dataGrafico4 = result2008;
@@ -547,7 +566,7 @@ function grafico4(){
     
     myChart4.destroy();
     if(anoGrafico4 == '2004' || anoGrafico4 == '2008' ){
-        labelGrafico4 = ['PREFEITO','VEREADOR'];
+        labelGrafico4 = ['Mayor','Councilman'];
         if(anoGrafico4=='2004'){
             dataGrafico4 = result2004;
         }
@@ -556,7 +575,7 @@ function grafico4(){
         };
     }
     else{
-        labelGrafico4 = ['GOVERNADOR','SENADOR','DEP FEDERAL', 'DEP ESTADUAL'];
+        labelGrafico4 = ['Governor','Senator','Federal Congressperson', 'State Congressperson'];
         if(anoGrafico4=='2006'){
             dataGrafico4 = result2006;
         }
@@ -665,7 +684,7 @@ var myChart5 = new Chart(ctx5, {
     data: {
     labels: labelGrafico5,
     datasets: [{
-        label: 'Partidos',
+        label: 'Parties',
         tension: 0,
         borderWidth: 0,
         pointRadius: 5,
@@ -766,7 +785,7 @@ function grafico5(){
         data: {
         labels: labelGrafico5,
         datasets: [{
-            label: 'Partidos',
+            label: 'Parties',
             tension: 0,
             borderWidth: 0,
             pointRadius: 5,
@@ -849,9 +868,9 @@ var ctx6 = document.getElementById("grafico6").getContext("2d");
 new Chart(ctx6, {
     type: "pie",
     data: {
-    labels: ["Ensino Superior", "Médio", "Fundamental", "Analfabeto"],
+    labels: ["University", "High school", "Elementary", "Illiterate"],
     datasets: [{
-        label: "Mobile apps",
+        label: "Education",
         tension: 0,
         borderWidth: 0,
         pointRadius: 5,

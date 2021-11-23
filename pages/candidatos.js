@@ -99,9 +99,10 @@ function rodarQueryCandidatos(){
         estado = document.forms[1]['estadoCandidato'].value;
         ano = document.forms[0]['anoCandidato'].value;
         var numero = x.toString();
-        var nomeCampo = "('"+estado+"', "+numero+")";
+        var juncaoEstado = estado+ano;
+        var nomeCampo = "('"+juncaoEstado+"', "+numero+")";
         var nome;
-        firebase.database().ref(1945).child(nomeCampo).once('value',(snap)=>{
+        firebase.database().ref(nomeCampo).once('value',(snap)=>{
             
             nome = snap.val();
             dadosLista.push(nome['NM_CANDIDATO']);

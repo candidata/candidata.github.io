@@ -4,9 +4,9 @@ var ctx = document.getElementById("chart-bars").getContext("2d");
 new Chart(ctx, {
     type: "bar",
     data: {
-    labels: ["OUTROS", "AGRICULTOR", "SERVIDOR MUNICIPAL", "EMPRESARIO"],
+    labels: ["OTHERS", "FARMER", "CIVIL SERVANT", "ENTREPRENEUR"],
     datasets: [{
-        label: "Ocupação",
+        label: "OCCUPATION",
         tension: 0.8,
         borderWidth: 0,
         borderRadius: 4,
@@ -87,7 +87,7 @@ new Chart(ctx2, {
     data: {
     labels: [1945, 1966, 1986,2006, 2020],
     datasets: [{
-        label: "Porcentagem",
+        label: "PERCENTAGE",
         tension: 0,
         borderWidth: 0,
         pointRadius: 5,
@@ -170,7 +170,7 @@ new Chart(ctx3, {
     data: {
     labels: [2004,2008, 2012, 2016, 2020],
     datasets: [{
-        label: "Quantidade",
+        label: "AMOUNT",
         tension: 0,
         borderWidth: 0,
         pointRadius: 5,

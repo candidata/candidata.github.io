@@ -45,7 +45,7 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+      
         
         <h4 class="ms-3 font-weight-bold text-white">CANDIDATA</h4>
       </a>
@@ -54,7 +54,7 @@
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white" href="../pages/dashboard.html">
+          <a class="nav-link text-white" href="../index.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -62,11 +62,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/tables.html">
+          <a class="nav-link text-white " href="../pages/estatisticas.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
-            <span class="nav-link-text ms-1">Estatisticas</span>
+            <span class="nav-link-text ms-1">Statistics</span>
           </a>
         </li>
                     
@@ -76,7 +76,7 @@
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
-            <span class="nav-link-text ms-1">Partidos</span>
+            <span class="nav-link-text ms-1">Parties</span>
           </a>
         </li>
         <li class="nav-item">
@@ -84,7 +84,7 @@
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
-            <span class="nav-link-text ms-1">Eleições</span>
+            <span class="nav-link-text ms-1">Elections</span>
           </a>
         </li>
         
@@ -102,7 +102,7 @@
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Profile</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">PARTIDOS POLÍTICOS</h6>
+          <h6 class="font-weight-bolder mb-0">Parties</h6>
         </nav>
       </div>
     </nav>
@@ -161,10 +161,10 @@
                   <div class="input-group input-group-static mb-4">
                      
                      <select class="form-control" id="anoEleicao">
-                       <option>2010</option>
-                       <option>2012</option>
-                       <option>2014</option>
-                       <option>2016</option>
+                      <option value='2020'>2020</option>
+                      <option value='2018'>2018</option>
+                      <option value='2016'>2016</option>
+                      <option>2011</option>
                        
                      </select>
                    </div>
@@ -182,7 +182,7 @@
                     
               <button class="btn btn-icon btn-3 btn-primary" type="button" onclick='mudarHeaderRodarCoisas()'>
                 <span class="btn-inner--icon"><i class="material-icons">search</i></span>
-                <span class="btn-inner--text">PESQUISAR</span>
+                <span class="btn-inner--text">SEARCH</span>
               </button>
             
                 
@@ -191,25 +191,7 @@
           </div>
 
 
-          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-            <div class="nav-wrapper position-relative end-0">
-              <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                    <i class="material-icons text-lg position-relative">home</i>
-                    <span class="ms-1">Candidatos</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="" href="prestacoacontas.html" role="tab" aria-selected="false">
-                    <i class="material-icons text-lg position-relative">email</i>
-                    <span class="ms-1"  href="prestacoacontas.html">Prestação de Contas</span>
-                  </a>
-                </li>
-                
-              </ul>
-            </div>
-          </div>
+          
         </div>
         <div class="row">
           <div class="row">
@@ -222,7 +204,7 @@
                   <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                       <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3" id='headerCandidatos'>CANDIDATOS 2010</h6>
+                        <h6 class="text-white text-capitalize ps-3" id='headerCandidatos'>CANDIDATES 2020</h6>
                       </div>
                     </div>
                     <div class="card-body px-0 pb-2">
@@ -230,11 +212,11 @@
                         <table class="table align-items-center mb-0">
                           <thead>
                             <tr>
-                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Candidato</th>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Candidate</th>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Local</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Votos</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cargo</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Votes</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Office</th>
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
@@ -244,23 +226,23 @@
                                 <div class="d-flex px-2 py-1">
                                   
                                   <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm" id='nomeNaUrna'>Nome Urna</h6>
-                                    <p class="text-xs text-secondary mb-0" id='nomeCompletoP'>Nome completo</p>
+                                    <h6 class="mb-0 text-sm" id='nomeNaUrna'>Name</h6>
+                                    <p class="text-xs text-secondary mb-0" id='nomeCompletoP'>Full name</p>
                                   </div>
                                 </div>
                               </td>
                               <td>
-                                <p class="text-xs font-weight-bold mb-0" id='nmCidade'>Cidade</p>
-                                <p class="text-xs text-secondary mb-0" id='estadoCandP'>Estado</p>
+                                <p class="text-xs font-weight-bold mb-0" id='nmCidade'>City</p>
+                                <p class="text-xs text-secondary mb-0" id='estadoCandP'>State</p>
                               </td>
                               <td class="align-middle text-center text-sm">
-                                <span class="badge badge-sm bg-gradient-success" id='statusCandSpan'>Eleito</span>
+                                <span class="badge badge-sm bg-gradient-success" id='statusCandSpan'>Elected</span>
                               </td>
                               <td class="align-middle text-center">
                                 <span class="text-secondary text-xs font-weight-bold" id='qtVotosSpan'>12345</span>
                               </td>
                               <td class="align-middle text-center">
-                                <span class="text-secondary text-xs font-weight-bold" id='cargoSpan'>Prefeito</span>
+                                <span class="text-secondary text-xs font-weight-bold" id='cargoSpan'>Mayor</span>
                               </td>
                               
                             </tr>
