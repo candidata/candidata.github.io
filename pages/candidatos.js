@@ -29,7 +29,7 @@ var camposQuero = ['NM_CANDIDATO','QT_VOTOS_NOMINAIS','SQ_CANDIDATO'];
 function gerarListaCandidatos(listaGeral){
     
     
-    for (var i=0;i<100;i++){
+    for (var i=0;i<80;i++){
         var tdBodyCand = document.getElementById('bodycandidato');
         var tdCand = document.getElementById('candidato'); // pega o td do candidato
         
@@ -42,10 +42,61 @@ function gerarListaCandidatos(listaGeral){
         var nomeCandidato = listaGeral[0][i];
         var nmUrnaCandidato = listaGeral[1][i];
         var cargoCandidato = listaGeral[2][i];
+        // ingles aqui tambem
+        switch (cargoCandidato){
+            case "PRESIDENTE":
+                cargoCandidato = 'PRESIDENT';
+                break;
+            case "SENADOR":
+                cargoCandidato = 'SENATOR';
+                break;
+            case "GOVERNADOR":
+                cargoCandidato = 'GOVERNOR';
+                break;
+            case "DEPUTADO FEDERAL":
+                cargoCandidato = 'FEDERAL DEPUTY';
+                break;
+            case "DEPUTADO ESTADUAL":
+                cargoCandidato = 'STATE DEPUTY';
+                break;
+            case "PREFEITO":
+                cargoCandidato = 'MAYOR';
+                break;
+            case "VEREADOR":
+                cargoCandidato = 'COUNCILMAN';
+                break;
+            case "VICE-PREFEITO":
+                cargoCandidato = 'VICE MAYOR';
+                break;
+            case "VICE-PRESIDENTE":
+                cargoCandidato = 'VICE PRESIDENT';
+                break;
+            
+        };
+
+         
+        
         var sgUFcandidato = listaGeral[3][i];
         var sitCandidato = listaGeral[4][i];
+        // fazer aqui a mudanca para ingles
+        if(sitCandidato == 'ELEITO'){
+            sitCandidato = 'ELECTED'
+        }
+        else if(sitCandidato=='ELEITO POR QP'){
+            sitCandidato = 'ELECTED BY QUOTA'
+        } else{
+            sitCandidato = 'NOT ELECTED'
+        }
         var votosCandidato = listaGeral[5][i];
         var genCandidato = listaGeral[6][i];
+        switch (genCandidato){
+            case 'MASCULINO':
+                genCandidato = 'MASCULINE';
+                break;
+            case "FEMININO":
+                genCandidato = "FEMININE";
+                break;
+        }
         var sgUeCandidato = listaGeral[7][i];
         
         res.querySelectorAll('#modal-candidato')[0].id = "modal-candidato"+i.toString();
@@ -64,7 +115,7 @@ function gerarListaCandidatos(listaGeral){
         res.querySelectorAll('p')[6].innerHTML = sgUFcandidato;
         // sit
         res.querySelectorAll('span')[0].innerHTML = sitCandidato;
-        if(sitCandidato!='ELEITO' && sitCandidato!='ELEITO POR QP'){
+        if(sitCandidato!='ELECTED' && sitCandidato!='ELECTED BY QUOTA'){
             res.querySelectorAll('span')[0].classList.replace('bg-gradient-success','bg-gradient-secondary');
         }
         // votos
@@ -80,6 +131,16 @@ function gerarListaCandidatos(listaGeral){
 
             
     };
+
+    listaGeral = [];
+    dadosLista = [];
+    dadosListaNome = [];
+    dadosListaCargo = [];
+    dadosListaLocal = [];
+    dadosListaSit = [];
+    dadosListaVotos = [];
+    dadosListaGen = [];
+    dadosListaUe = [];
 };
 
 
@@ -93,9 +154,28 @@ var dadosListaVotos = [];
 var dadosListaGen = [];
 var dadosListaUe = [];
 
+function removeAllChildNodes(parent) {
+    while (parent.childNodes.length>2) {
+        parent.removeChild(parent.lastChild);
+    }
+}
+
+
+var qntCliques = 0;
+
 function rodarQueryCandidatos(){
-    
-    for (var x=0;x<100;x++){
+    // if(document.getElementById('bodycandidato').childNodes.length>2){
+    //     for (var z = 2;z<document.getElementById('bodycandidato').childNodes.length+1;z++){
+    //         document.getElementById('bodycandidato').removeChild(document.getElementById('bodycandidato').childNodes[z]);
+    //     }
+    // }
+    if(qntCliques>=1){
+        window.location.href="candidatos.html"
+    }
+    removeAllChildNodes(document.getElementById('bodycandidato'));
+
+
+    for (var x=0;x<80;x++){
         estado = document.forms[1]['estadoCandidato'].value;
         ano = document.forms[0]['anoCandidato'].value;
         var numero = x.toString();
@@ -109,7 +189,13 @@ function rodarQueryCandidatos(){
             dadosListaNome.push(nome['NM_URNA_CANDIDATO']);
             dadosListaCargo.push(nome['DS_CARGO']);
             dadosListaLocal.push(nome['SG_UF']);
-            dadosListaSit.push(nome['DS_SIT_TOT_TURNO']);
+            if(parseInt(ano)<1990){
+                
+                dadosListaSit.push(nome['DS_SIT_CAND_TOT']);
+            } else{
+                dadosListaSit.push(nome['DS_SIT_TOT_TURNO']);
+
+            }
             
             dadosListaVotos.push(nome['QT_VOTOS_NOMINAIS']);
             dadosListaGen.push(nome['DS_GENERO']);
@@ -129,18 +215,15 @@ function rodarQueryCandidatos(){
         
     };
     
-    if(document.getElementById('bodycandidato').childNodes.length>=2){
-        for (var z = 2;z<document.getElementById('bodycandidato').childNodes.length;z++){
-            document.getElementById('bodycandidato').removeChild(document.getElementById('bodycandidato').childNodes[z]);
-        }
-    }
+   
 
-    document.getElementById('anoGeralEleicoes').innerHTML = 'Eleições '+ano.toString();
-    document.getElementById('descricaoAnoGeral').innerHTML = 'Eleições Gerais de '+ano.toString();
+    document.getElementById('anoGeralEleicoes').innerHTML = 'Elections '+ano.toString();
+    document.getElementById('descricaoAnoGeral').innerHTML = 'Brazilian General Elections '+ano.toString();
     setTimeout(function() {
         gerarListaCandidatos(listaGeral);
 
     }, (3 * 1000));
     
+    qntCliques+=1;
 };
 
