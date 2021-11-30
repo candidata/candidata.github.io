@@ -29,6 +29,7 @@ var camposQuero = ['NM_CANDIDATO','QT_VOTOS_NOMINAIS','SQ_CANDIDATO'];
 function gerarListaCandidatos(listaGeral){
     
     
+    
     for (var i=0;i<80;i++){
         var tdBodyCand = document.getElementById('bodycandidato');
         var tdCand = document.getElementById('candidato'); // pega o td do candidato
@@ -38,11 +39,10 @@ function gerarListaCandidatos(listaGeral){
         
         tdBodyCand.appendChild(novocand);
         var res = document.querySelectorAll('tr')[2+i];
-        
         var nomeCandidato = listaGeral[0][i];
         var nmUrnaCandidato = listaGeral[1][i];
         var cargoCandidato = listaGeral[2][i];
-        // ingles aqui tambem
+        
         switch (cargoCandidato){
             case "PRESIDENTE":
                 cargoCandidato = 'PRESIDENT';
@@ -98,6 +98,9 @@ function gerarListaCandidatos(listaGeral){
                 break;
         }
         var sgUeCandidato = listaGeral[7][i];
+        if(sgUeCandidato==null){
+            sgUeCandidato=='NULL';
+        }
         
         res.querySelectorAll('#modal-candidato')[0].id = "modal-candidato"+i.toString();
         res.querySelectorAll('button')[0].setAttribute("href", "#modal-candidato"+i.toString());
@@ -121,13 +124,27 @@ function gerarListaCandidatos(listaGeral){
         // votos
         
         res.querySelectorAll('span')[1].innerHTML = votosCandidato;
-        res.querySelectorAll('p')[8].innerHTML = votosCandidato;
+        res.querySelectorAll('p')[7].innerHTML = votosCandidato;
         
         res.querySelectorAll('p')[4].innerHTML = genCandidato;
         
         // sgue
-        res.querySelectorAll('p')[7].innerHTML = sgUeCandidato;
+        
     
+        // despesas
+        // 8 = total, 9 = proprios, 10 = despesas
+
+        var totalRecursos = listaGeral[8][i];
+        var recursosProprios = listaGeral[9][i];
+        var despesasCandidato = listaGeral[10][i];
+
+        res.querySelectorAll('p')[8].innerHTML = totalRecursos;
+
+        res.querySelectorAll('p')[9].innerHTML = despesasCandidato;
+
+        res.querySelectorAll('p')[10].innerHTML = recursosProprios;
+        
+        console.log(totalRecursos);
 
             
     };
@@ -141,6 +158,9 @@ function gerarListaCandidatos(listaGeral){
     dadosListaVotos = [];
     dadosListaGen = [];
     dadosListaUe = [];
+    dadosTotalRecursos = [];
+    dadosRecursosProprios = [];
+    dadosDespesas = [];
 };
 
 
@@ -153,6 +173,10 @@ var dadosListaSit = [];
 var dadosListaVotos = [];
 var dadosListaGen = [];
 var dadosListaUe = [];
+var dadosTotalRecursos = [];
+var dadosRecursosProprios = [];
+var dadosDespesas = [];
+
 
 function removeAllChildNodes(parent) {
     while (parent.childNodes.length>2) {
@@ -164,15 +188,11 @@ function removeAllChildNodes(parent) {
 var qntCliques = 0;
 
 function rodarQueryCandidatos(){
-    // if(document.getElementById('bodycandidato').childNodes.length>2){
-    //     for (var z = 2;z<document.getElementById('bodycandidato').childNodes.length+1;z++){
-    //         document.getElementById('bodycandidato').removeChild(document.getElementById('bodycandidato').childNodes[z]);
-    //     }
-    // }
+    console.log("chegou aqui");
     if(qntCliques>=1){
         window.location.href="candidatos.html"
+        removeAllChildNodes(document.getElementById('bodycandidato'));
     }
-    removeAllChildNodes(document.getElementById('bodycandidato'));
 
 
     for (var x=0;x<80;x++){
@@ -183,6 +203,7 @@ function rodarQueryCandidatos(){
         var nomeCampo = "('"+juncaoEstado+"', "+numero+")";
         var nome;
         firebase.database().ref(nomeCampo).once('value',(snap)=>{
+            
             
             nome = snap.val();
             dadosLista.push(nome['NM_CANDIDATO']);
@@ -200,6 +221,9 @@ function rodarQueryCandidatos(){
             dadosListaVotos.push(nome['QT_VOTOS_NOMINAIS']);
             dadosListaGen.push(nome['DS_GENERO']);
             dadosListaUe.push(nome['NM_MUNICIPIO']);
+            dadosTotalRecursos.push(nome['TOTAL_RECURSOS']);
+            dadosRecursosProprios.push(nome['RECURSO_P']);
+            dadosDespesas.push(nome['DESP']);
             
             listaGeral.push(dadosLista);
             listaGeral.push(dadosListaNome);
@@ -209,6 +233,9 @@ function rodarQueryCandidatos(){
             listaGeral.push(dadosListaVotos);
             listaGeral.push(dadosListaGen);
             listaGeral.push(dadosListaUe);
+            listaGeral.push(dadosTotalRecursos);
+            listaGeral.push(dadosRecursosProprios);
+            listaGeral.push(dadosDespesas);
             
         });
         
@@ -220,8 +247,8 @@ function rodarQueryCandidatos(){
     document.getElementById('anoGeralEleicoes').innerHTML = 'Elections '+ano.toString();
     document.getElementById('descricaoAnoGeral').innerHTML = 'Brazilian General Elections '+ano.toString();
     setTimeout(function() {
+        console.log("LOADING DATA");
         gerarListaCandidatos(listaGeral);
-
     }, (3 * 1000));
     
     qntCliques+=1;
